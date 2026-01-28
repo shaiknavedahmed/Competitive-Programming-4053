@@ -1,5 +1,12 @@
-import sys
-input = sys.stdin.readline
+"""
+Sample Input:
+5
+3 34 4 12 5
+9
+
+Sample Output:
+True
+"""
 
 def subset_sum(arr, n, target):
     if target == 0:
@@ -10,10 +17,13 @@ def subset_sum(arr, n, target):
             subset_sum(arr, n - 1, target - arr[n - 1]))
 
 def solve():
-    n = int(input())
-    arr = list(map(int, input().split()))
-    target = int(input())
-    print(subset_sum(arr, n, target))
+    try:
+        n = int(input())
+        arr = list(map(int, input().split()))
+        target = int(input())
+        print(subset_sum(arr, n, target))
+    except EOFError:
+        pass
 
 if __name__ == "__main__":
     solve()
