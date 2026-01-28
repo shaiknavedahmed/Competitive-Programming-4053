@@ -1,82 +1,116 @@
-#tuesday
-import sys
+# Problem 1
 
-def fractional_knapsack(items, capacity):
-    items.sort(key=lambda x: x[0] / x[1], reverse=True)
+# Sample Input (paste this when running)
+# 1
+# 3 50
+# 60 10
+# 100 20
+# 120 30
+
+t = int(input())
+
+for _ in range(t):
+    n, W = map(int, input().split())
+    items = []
+
+    for _ in range(n):
+        v, w = map(int, input().split())
+        items.append((v / w, v, w))  # (ratio, value, weight)
+
+    # sort by ratio descending
+    items.sort(key=lambda x: x[0], reverse=True)
 
     total_value = 0.0
-    remaining_capacity = capacity
+    capacity = W
 
-    for value, weight in items:
-        if remaining_capacity == 0:
+    for ratio, value, weight in items:
+        if capacity == 0:
             break
-        if weight <= remaining_capacity:
+
+        if weight <= capacity:
             total_value += value
-            remaining_capacity -= weight
+            capacity -= weight
         else:
-            fraction = remaining_capacity / weight
-            total_value += value * fraction
-            remaining_capacity = 0
+            total_value += ratio * capacity
+            break
 
-    return total_value
+    print(f"{total_value:.6f}")
 
 
-def main():
-    data = sys.stdin.read().strip().split()
-    idx = 0
-    t = int(data[idx])
-    idx += 1
+# Output : 240.000000
 
-    results = []
-    for _ in range(t):
-        n = int(data[idx])
-        w = int(data[idx + 1])
-        idx += 2
 
-        items = []
-        for _ in range(n):
-            v = int(data[idx])
-            wt = int(data[idx + 1])
-            idx += 2
-            items.append((v, wt))
 
-        max_value = fractional_knapsack(items, w)
-        results.append(f"{max_value:.6f}")
 
-    print("\n".join(results))
+# Problem 2 
 
-#wednesday
-import sys
-import heapq
+"""
+Sample Input:
+1
+7
+4 1 6 2 5 3 2
 
-input = sys.stdin.readline
+Expected Output:
+1 2 2 3 4 5 6
+"""
+
+def merge(left_half, right_half):
+    sorted_arr = []
+    i = 0
+    j = 0
+    
+    while i < len(left_half) and j < len(right_half):
+        if left_half[i] <= right_half[j]:
+            sorted_arr.append(left_half[i])
+            i += 1
+        else:
+            sorted_arr.append(right_half[j])
+            j += 1
+    
+    
+    sorted_arr.extend(left_half[i:])
+    sorted_arr.extend(right_half[j:])
+    
+    return sorted_arr
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    # Divide
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    right_half = arr[mid:]
+
+    
+    left_sorted = merge_sort(left_half)
+    right_sorted = merge_sort(right_half)
+    
+    return merge(left_sorted, right_sorted)
 
 def solve():
-    T = int(input())
-    out = []
-    for _ in range(T):
-        N = int(input())
-        jobs = []
-        for _ in range(N):
-            d, p = map(int, input().split())
-            jobs.append((d, p))
+    try:
+
+        input_line = input().strip()
+        if not input_line:
+            return
+        t = int(input_line)
         
-        jobs.sort()  # sort by deadline
-        min_heap = []
-        total_profit = 0
-        
-        for d, p in jobs:
-            heapq.heappush(min_heap, p)
-            total_profit += p
-            if len(min_heap) > d:
-                total_profit -= heapq.heappop(min_heap)
-        
-        out.append(f"{len(min_heap)} {total_profit}")
-    
-    print("\n".join(out))
+        for _ in range(t):
+            
+            try:
+                n = int(input().strip())
+            except EOFError:
+                break
+                
+            arr = list(map(int, input().strip().split()))
+            
+            result = merge_sort(arr)
+            
+            print(*result)
+            
+    except EOFError:
+        pass
 
 if __name__ == "__main__":
     solve()
-
-if __name__ == "__main__":
-    main()
