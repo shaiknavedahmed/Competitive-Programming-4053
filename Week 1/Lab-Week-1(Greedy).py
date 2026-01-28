@@ -2,7 +2,6 @@
 import sys
 
 def fractional_knapsack(items, capacity):
-    # Sort items by value/weight ratio in descending order
     items.sort(key=lambda x: x[0] / x[1], reverse=True)
 
     total_value = 0.0
