@@ -1,3 +1,4 @@
+#tuesday
 import sys
 
 def fractional_knapsack(items, capacity):
@@ -45,6 +46,38 @@ def main():
 
     print("\n".join(results))
 
+#wednesday
+import sys
+import heapq
+
+input = sys.stdin.readline
+
+def solve():
+    T = int(input())
+    out = []
+    for _ in range(T):
+        N = int(input())
+        jobs = []
+        for _ in range(N):
+            d, p = map(int, input().split())
+            jobs.append((d, p))
+        
+        jobs.sort()  # sort by deadline
+        min_heap = []
+        total_profit = 0
+        
+        for d, p in jobs:
+            heapq.heappush(min_heap, p)
+            total_profit += p
+            if len(min_heap) > d:
+                total_profit -= heapq.heappop(min_heap)
+        
+        out.append(f"{len(min_heap)} {total_profit}")
+    
+    print("\n".join(out))
+
+if __name__ == "__main__":
+    solve()
 
 if __name__ == "__main__":
     main()
