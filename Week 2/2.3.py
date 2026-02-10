@@ -1,12 +1,12 @@
-"""
-WEEK 2 - DYNAMIC PROGRAMMING (ALL IN ONE)
+# WEEK 2 - DYNAMIC PROGRAMMING (ALL IN ONE)
 
-Sample Outputs (in hashtags):
-
-# Fibonacci (Input: 10)
+# ---------- Assignment 1: Fibonacci using Memoization ----------
+# Input:
+# 10
+# Output:
 # 55
 
-# 0/1 Knapsack
+# ---------- Assignment 2: 0/1 Knapsack ----------
 # Input:
 # 3 50
 # 60 10
@@ -15,14 +15,14 @@ Sample Outputs (in hashtags):
 # Output:
 # 220
 
-# LCS
+# ---------- Assignment 3: Longest Common Subsequence (LCS) ----------
 # Input:
 # AGGTAB
 # GXTXAYB
 # Output:
 # 4
 
-# Coin Change
+# ---------- Assignment 4: Coin Change (Minimum Coins) ----------
 # Input:
 # 3
 # 1 3 4
@@ -30,13 +30,13 @@ Sample Outputs (in hashtags):
 # Output:
 # 2
 
-# Matrix Chain Multiplication
+# ---------- Assignment 5: Matrix Chain Multiplication ----------
 # Input:
 # 4
 # 10 20 30 40
 # Output:
 # 18000
-"""
+
 
 import sys
 input = sys.stdin.readline
@@ -120,21 +120,18 @@ def mcm():
 
 
 def solve():
-    try:
-        choice = int(input().strip())
+    choice = int(input().strip())
 
-        if choice == 1:
-            fibonacci_memo()
-        elif choice == 2:
-            knapsack_01()
-        elif choice == 3:
-            lcs()
-        elif choice == 4:
-            coin_change()
-        elif choice == 5:
-            mcm()
-    except:
-        pass
+    if choice == 1:
+        fibonacci_memo()
+    elif choice == 2:
+        knapsack_01()
+    elif choice == 3:
+        lcs()
+    elif choice == 4:
+        coin_change()
+    elif choice == 5:
+        mcm()
 
 
 if __name__ == "__main__":
